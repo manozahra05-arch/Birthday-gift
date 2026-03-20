@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy Birthday Dr Laiba 💖</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 45px;
+            animation: glow 2s infinite alternate;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            background: white;
+            color: #ff4b5c;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ff4b5c;
+            color: white;
+        }
+
+        #message {
+            font-size: 22px;
+            margin-top: 20px;
+            white-space: pre-line;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px white; }
+            to { text-shadow: 0 0 20px #ff4b5c; }
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🎉 Happy Birthday Dr Laiba 🎉</h1>
+    <p>Click below for your surprise 💖</p>
+    <button onclick="startSurprise()">Click Me 🎁</button>
+
+    <p id="message"></p>
+</div>
+
+<!-- Background Music -->
+<audio id="music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+</audio>
+
+<canvas id="confetti"></canvas>
+
+<script>
+function startSurprise() {
+    document.getElementById("music").play();
+    typeMessage();
+    startConfetti();
+}
+
+let text = `💌 Dear Dr Laiba,
+
+You are not just my best friend…
+You are my happiness, my support, my safe place 💕
+
+I am so lucky to have you in my life 😘
+
+May Allah bless you with endless happiness, success and love 🤍
+
+Stay the same beautiful soul forever ✨
+
+❤️ Love you always ❤️`;
+
+let i = 0;
+
+function typeMessage() {
+    if (i < text.length) {
+        document.getElementById("message").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeMessage, 40);
+    }
+}
+
+/* Confetti Effect */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let pieces = [];
+
+for (let i = 0; i < 100; i++) {
+    pieces.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 6 + 2,
+        d: Math.random() * 100
+    });
+}
+
+function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+    for (let i = 0; i < pieces.length; i++) {
+        let p = pieces[i];
+        ctx.moveTo(p.x, p.y);
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+    }
+    ctx.fill();
+    updateConfetti();
+}
+
+function updateConfetti() {
+    for (let i = 0; i < pieces.length; i++) {
+        let p = pieces[i];
+        p.y += Math.cos(p.d) + 1;
+        if (p.y > canvas.height) {
+            p.y = 0;
+            p.x = Math.random() * canvas.width;
+        }
+    }
+}
+
+function startConfetti() {
+    setInterval(drawConfetti, 20);
+}
+</script>
+
+</body>
+</html>
